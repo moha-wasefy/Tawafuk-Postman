@@ -626,7 +626,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{}"
+							"raw": "{\r\n    \"context\": {\r\n        \"lang\": \"ar_001\" // English: en_US / Arabic: ar_001\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/json/2/tawafuk.profile/get_dropdown_values",
