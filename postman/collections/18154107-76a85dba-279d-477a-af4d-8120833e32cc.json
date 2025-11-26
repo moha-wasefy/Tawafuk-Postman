@@ -424,11 +424,16 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer {{admin_api_key}}"
+							},
+							{
+								"key": "Lang",
+								"value": "ar_001",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \n  \"context\": {\n        \"lang\": \"ar_001\" // English: en_US / Arabic: ar_001\n    },\n  \"domain\": [], // get all: [] , get specific countries: [[\"name\",\"in\",[\"Egypt\",\"Saudi Arabia\"]]]\n  \"fields\": \n    [\n    \"id\",\n    \"name\"\n    ]\n}"
+							"raw": "{    \n\n  \"domain\": [], // get all: [] , get specific countries: [[\"name\",\"in\",[\"Egypt\",\"Saudi Arabia\"]]]\n  \"fields\": \n    [\n    \"id\",\n    \"name\"\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/json/2/res.country/search_read",
