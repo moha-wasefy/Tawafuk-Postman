@@ -1,0 +1,756 @@
+{
+	"info": {
+		"_postman_id": "18154107-76a85dba-279d-477a-af4d-8120833e32cc",
+		"name": "Tawafuk API - (Stage)",
+		"description": "Tawafuk Marriage App API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"id": "18154107-6b9c04f0-c72a-4032-814c-2414da15b6d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"moha.test@example.com\",\n    \"password\": \"12345678\",\n    \"full_name\": \"Mohamed Ahmed\",\n    \"gender\": \"male\", // male,female\n    \"birth_date\": \"1994-11-01\",\n    \"phone\": \"+201012345678\",\n    \"country_id\": 65, // 65 --> Egypt\n    \"state_id\": 278, // 278 --> Cairo\n    \"city\": \"Cairo\"\n  }\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18908239-a5c3-4777-94d6-e0db9e935fbd",
+								"exec": [
+									"\r",
+									"OdooToken = pm.response.json().access_token;\r",
+									"pm.collectionVariables.set(\"access_token\", OdooToken);\r",
+									"\r",
+									"RefreshToken = pm.response.json().refresh_token;\r",
+									"pm.collectionVariables.set(\"refresh_token\", RefreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "18154107-72643398-e8dd-4d2d-a835-0143c9515533",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"moha.test@example.com\",\n    \"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18908239-a5c3-4777-94d6-e0db9e935fbd",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "18154107-7ccdbdb0-45b2-4be7-8587-24f60c391a23",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"old_password\": \"123456789\",\n    \"new_password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d1ced82a-6fd5-447b-86c0-8694a234e5e4",
+								"exec": [
+									"\r",
+									"OdooToken = pm.response.json().access_token;\r",
+									"pm.collectionVariables.set(\"access_token\", OdooToken);\r",
+									"\r",
+									"RefreshToken = pm.response.json().refresh_token;\r",
+									"pm.collectionVariables.set(\"refresh_token\", RefreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "18154107-85b708e1-c0e8-4fcf-8668-cfd199c47dee",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						},
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh_token\": \"{{refresh_token}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						},
+						"description": "Use this to lookup partner IDs for channel membership/DMs."
+					},
+					"response": []
+				}
+			],
+			"id": "18154107-e10cefce-567f-4a24-a81d-096fc4df67d8"
+		},
+		{
+			"name": "Profile Management",
+			"item": [
+				{
+					"name": "Get Other Profile",
+					"id": "18154107-d0456b4e-66f4-45e7-a4c3-2d7576736355",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"1"
+							]
+						},
+						"description": "Use this to lookup partner IDs for channel membership/DMs."
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Profile",
+					"id": "18154107-99610b01-5a0d-406b-8a5d-7cda56606406",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"me"
+							]
+						},
+						"description": "Use this to lookup partner IDs for channel membership/DMs."
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Profile",
+					"id": "18154107-79102c9a-b454-4b0d-bdd3-0724ff6e7f3d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // Contact Info\n    \"name\": \"Mohamed Ahmedd\",\n    \"email\": \"moha_test_002@example.com\",\n    \"phone\": \"+1234567890\",\n    \"mobile\": \"+1234567890\",\n\n    // Basic Info\n    \"gender\": \"male\",  // Options: \"male\", \"female\"\n    \"birth_date\": \"1990-01-01\",\n    \"marital_status\": \"single\",  // Options: \"single\", \"divorced\", \"widowed\"\n    \"height\": 175,\n    \"weight\": 70,\n    \"skin_color\": \"medium\",  // Options: \"very_fair\", \"fair\", \"medium\", \"olive\", \"brown\", \"dark_brown\"\n    \"body_type\": \"athletic\",  // Options: \"slim\", \"athletic\", \"average\", \"heavyset\"\n\n    // Location\n    \"country_id\": 65,\n    \"state_id\": 278,\n    \"city\": \"Cairo\",\n\n    // Religious Info\n    \"sect\": \"sunni\",  // Options: \"sunni\", \"shia\", \"other\"\n    \"religious_commitment\": \"religious\",  // Options: \"very_religious\", \"religious\", \"moderate\", \"not_religious\"\n    \"prayer\": \"always\",  // Options: \"always\", \"mostly\", \"sometimes\", \"rarely\", \"never\"\n    \"smoking\": \"never\",  // Options: \"never\", \"occasionally\", \"regularly\"\n    \"music\": \"no_music\",  // Options: \"listen\", \"no_music\", \"selective\"\n\n    // Education & Career\n    \"education_level\": \"bachelor\",  // Options: \"high_school\", \"diploma\", \"bachelor\", \"master\", \"phd\", \"other\"\n    \"major\": \"Computer Science\",\n    \"job_title\": \"Software Engineer\",\n    \"company\": \"Tech Company\",\n    \"income_level\": \"prefer_not_say\",  // Options: \"low\", \"middle\", \"upper_middle\", \"high\", \"prefer_not_say\"\n\n    // Family Info\n    \"siblings_count\": 2,\n    \"siblings_order\": 1,\n    \"living_with_family\": true,\n    \"parents_alive\": \"both\",  // Options: \"both\", \"mother_only\", \"father_only\", \"neither\"\n    \"family_acceptance\": true,\n\n    // Interests & Lifestyle\n    \"hobbies\": \"Reading, Hiking, Photography\",\n    \"favorite_cuisine\": \"Italian, Middle Eastern\",\n    \"sports_activity\": \"Running\",\n    \"travel_preference\": \"Adventure travel\",\n\n    // About Me\n    \"bio\": \"Looking for a compatible partner\",\n    \"purpose\": \"Building a family based on Islamic values\",\n    \"traits\": \"Honest, Kind, Patient\",\n    \"spoken_languages\": \"English, Arabic\",\n\n    // Visibility & Status\n    \"is_visible\": true,\n    \"state\": \"active\"  // Options: \"draft\", \"active\", \"inactive\", \"suspended\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"update"
+							]
+						},
+						"description": "Use this to lookup partner IDs for channel membership/DMs."
+					},
+					"response": []
+				},
+				{
+					"name": "Matching",
+					"id": "18154107-e225a637-4e1e-4fea-9506-77d2c821d37e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_api_key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"context\": {\n        \"lang\": \"ar_001\" // English: en_US / Arabic: ar_001\n    },\n  // Pagination\n  \"offset\": 1, // Page Number\n  \"limit\": 10, // Page Size\n  // Filteration\n  \"domain\": [\n    [\"marital_status\",\"=\",\"single\"], // \"single\", \"divorced\", \"widowed\"\n    [\"skin_color\",\"=\",\"medium\"], // \"very_fair\", \"fair\", \"medium\", \"olive\", \"brown\", \"dark_brown\"\n    [\"body_type\",\"=\",\"athletic\"], // \"slim\", \"athletic\", \"average\", \"heavyset\"\n    [\"education_level\",\"=\",\"bachelor\"], // \"high_school\", \"diploma\", \"bachelor\", \"master\", \"phd\", \"other\"\n    [\"smoking\",\"=\",\"never\"],  // \"never\", \"occasionally\", \"regularly\"\n    [\"prayer\",\"=\",\"always\"],  // \"always\", \"mostly\", \"sometimes\", \"rarely\", \"never\"\n    [\"religious_commitment\",\"=\",\"very_religious\"],  // \"very_religious\", \"religious\", \"moderate\", \"not_religious\"\n    [\"sect\",\"=\",\"sunni\"]  // \"sunni\", \"shia\", \"other\"\n  ],\n  // Fields to show in the response\n  \"fields\": \n[\n    // Core Fields\n    \"partner_id\",\n    \"user_id\",\n    \n    // Basic Info\n    \"gender\",\n    \"birth_date\",\n    \"age\",\n    \"marital_status\",\n    \"height\",\n    \"weight\",\n    \"skin_color\",\n    \"body_type\",\n    \n    // Contact (inherited from res.partner)\n    \"name\",\n    \"email\",\n    \"phone\",\n    \"mobile\",\n    \n    // Location (inherited from res.partner)\n    \"country_id\",\n    \"city_id\",\n    \n    // Religious Info\n    \"sect\",\n    \"religious_commitment\",\n    \"prayer\",\n    \"smoking\",\n    \"music\",\n    \n    // Education & Career\n    \"education_level\",\n    \"major\",\n    \"job_title\",\n    \"company\",\n    \"income_level\",\n    \n    // Family Info\n    \"siblings_count\",\n    \"siblings_order\",\n    \"living_with_family\",\n    \"parents_alive\",\n    \"family_acceptance\",\n    \n    // Interests & Lifestyle\n    \"hobbies\",\n    \"favorite_cuisine\",\n    \"sports_activity\",\n    \"travel_preference\",\n    \n    // About Me\n    \"bio\",\n    \"purpose\",\n    \"traits\",\n    \"spoken_languages\",\n    \n    // Visibility & Status\n    \"is_visible\",\n    \"state\",\n    \n    // Photos\n    \"photo_ids\", // not yet handeled\n    \"photo_count\"\n]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/json/2/tawafuk.profile/search_read",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"2",
+								"tawafuk.profile",
+								"search_read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photos",
+					"id": "18154107-a7d112a6-e06d-43ea-ac6a-ded81dd33588",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photos",
+									"type": "file",
+									"uuid": "bfd138ee-9e39-4968-8390-d7be67cc6e74",
+									"value": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile/photos-create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"photos-create"
+							]
+						},
+						"description": "Use this to lookup partner IDs for channel membership/DMs."
+					},
+					"response": []
+				}
+			],
+			"id": "18154107-d8c6d3e7-6a5e-4393-a23b-e6861745bd46"
+		},
+		{
+			"name": "Configuration",
+			"item": [
+				{
+					"name": "Get Countries",
+					"id": "18154107-ff8aec1b-f81b-4340-8106-c3c810e5045d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_api_key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \n  \"context\": {\n        \"lang\": \"ar_001\" // English: en_US / Arabic: ar_001\n    },\n  \"domain\": [], // get all: [] , get specific countries: [[\"name\",\"in\",[\"Egypt\",\"Saudi Arabia\"]]]\n  \"fields\": \n    [\n    \"id\",\n    \"name\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/json/2/res.country/search_read",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"2",
+								"res.country",
+								"search_read"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "18154107-585879e3-cfc0-4bfc-9cef-0cb1efa0fb5d",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_api_key}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"domain\": [], // get all: [] , get specific countries: [[\"name\",\"in\",[\"Egypt\",\"Saudi Arabia\"]]]\n  \"fields\": \n    [\n    \"id\",\n    \"name\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/json/2/res.country/search_read",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"2",
+										"res.country",
+										"search_read"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "8751"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.2 Python/3.12.3"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 21:04:27 GMT"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "[\n    {\n        \"id\": 3,\n        \"name\": \"Afghanistan\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"Albania\"\n    },\n    {\n        \"id\": 62,\n        \"name\": \"Algeria\"\n    },\n    {\n        \"id\": 11,\n        \"name\": \"American Samoa\"\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Andorra\"\n    },\n    {\n        \"id\": 8,\n        \"name\": \"Angola\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Anguilla\"\n    },\n    {\n        \"id\": 9,\n        \"name\": \"Antarctica\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Antigua and Barbuda\"\n    },\n    {\n        \"id\": 10,\n        \"name\": \"Argentina\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"Armenia\"\n    },\n    {\n        \"id\": 14,\n        \"name\": \"Aruba\"\n    },\n    {\n        \"id\": 13,\n        \"name\": \"Australia\"\n    },\n    {\n        \"id\": 12,\n        \"name\": \"Austria\"\n    },\n    {\n        \"id\": 16,\n        \"name\": \"Azerbaijan\"\n    },\n    {\n        \"id\": 32,\n        \"name\": \"Bahamas\"\n    },\n    {\n        \"id\": 23,\n        \"name\": \"Bahrain\"\n    },\n    {\n        \"id\": 19,\n        \"name\": \"Bangladesh\"\n    },\n    {\n        \"id\": 18,\n        \"name\": \"Barbados\"\n    },\n    {\n        \"id\": 36,\n        \"name\": \"Belarus\"\n    },\n    {\n        \"id\": 20,\n        \"name\": \"Belgium\"\n    },\n    {\n        \"id\": 37,\n        \"name\": \"Belize\"\n    },\n    {\n        \"id\": 25,\n        \"name\": \"Benin\"\n    },\n    {\n        \"id\": 27,\n        \"name\": \"Bermuda\"\n    },\n    {\n        \"id\": 33,\n        \"name\": \"Bhutan\"\n    },\n    {\n        \"id\": 29,\n        \"name\": \"Bolivia\"\n    },\n    {\n        \"id\": 30,\n        \"name\": \"Bonaire, Sint Eustatius and Saba\"\n    },\n    {\n        \"id\": 17,\n        \"name\": \"Bosnia and Herzegovina\"\n    },\n    {\n        \"id\": 35,\n        \"name\": \"Botswana\"\n    },\n    {\n        \"id\": 34,\n        \"name\": \"Bouvet Island\"\n    },\n    {\n        \"id\": 31,\n        \"name\": \"Brazil\"\n    },\n    {\n        \"id\": 105,\n        \"name\": \"British Indian Ocean Territory\"\n    },\n    {\n        \"id\": 28,\n        \"name\": \"Brunei Darussalam\"\n    },\n    {\n        \"id\": 22,\n        \"name\": \"Bulgaria\"\n    },\n    {\n        \"id\": 21,\n        \"name\": \"Burkina Faso\"\n    },\n    {\n        \"id\": 24,\n        \"name\": \"Burundi\"\n    },\n    {\n        \"id\": 116,\n        \"name\": \"Cambodia\"\n    },\n    {\n        \"id\": 47,\n        \"name\": \"Cameroon\"\n    },\n    {\n        \"id\": 38,\n        \"name\": \"Canada\"\n    },\n    {\n        \"id\": 52,\n        \"name\": \"Cape Verde\"\n    },\n    {\n        \"id\": 123,\n        \"name\": \"Cayman Islands\"\n    },\n    {\n        \"id\": 40,\n        \"name\": \"Central African Republic\"\n    },\n    {\n        \"id\": 214,\n        \"name\": \"Chad\"\n    },\n    {\n        \"id\": 46,\n        \"name\": \"Chile\"\n    },\n    {\n        \"id\": 48,\n        \"name\": \"China\"\n    },\n    {\n        \"id\": 54,\n        \"name\": \"Christmas Island\"\n    },\n    {\n        \"id\": 39,\n        \"name\": \"Cocos (Keeling) Islands\"\n    },\n    {\n        \"id\": 49,\n        \"name\": \"Colombia\"\n    },\n    {\n        \"id\": 118,\n        \"name\": \"Comoros\"\n    },\n    {\n        \"id\": 41,\n        \"name\": \"Congo (DRC)\"\n    },\n    {\n        \"id\": 42,\n        \"name\": \"Congo (Republic)\"\n    },\n    {\n        \"id\": 45,\n        \"name\": \"Cook Islands\"\n    },\n    {\n        \"id\": 50,\n        \"name\": \"Costa Rica\"\n    },\n    {\n        \"id\": 97,\n        \"name\": \"Croatia\"\n    },\n    {\n        \"id\": 51,\n        \"name\": \"Cuba\"\n    },\n    {\n        \"id\": 53,\n        \"name\": \"Curaçao\"\n    },\n    {\n        \"id\": 55,\n        \"name\": \"Cyprus\"\n    },\n    {\n        \"id\": 56,\n        \"name\": \"Czech Republic\"\n    },\n    {\n        \"id\": 44,\n        \"name\": \"Côte d'Ivoire\"\n    },\n    {\n        \"id\": 59,\n        \"name\": \"Denmark\"\n    },\n    {\n        \"id\": 58,\n        \"name\": \"Djibouti\"\n    },\n    {\n        \"id\": 60,\n        \"name\": \"Dominica\"\n    },\n    {\n        \"id\": 61,\n        \"name\": \"Dominican Republic\"\n    },\n    {\n        \"id\": 63,\n        \"name\": \"Ecuador\"\n    },\n    {\n        \"id\": 65,\n        \"name\": \"Egypt\"\n    },\n    {\n        \"id\": 209,\n        \"name\": \"El Salvador\"\n    },\n    {\n        \"id\": 87,\n        \"name\": \"Equatorial Guinea\"\n    },\n    {\n        \"id\": 67,\n        \"name\": \"Eritrea\"\n    },\n    {\n        \"id\": 64,\n        \"name\": \"Estonia\"\n    },\n    {\n        \"id\": 212,\n        \"name\": \"Eswatini\"\n    },\n    {\n        \"id\": 69,\n        \"name\": \"Ethiopia\"\n    },\n    {\n        \"id\": 72,\n        \"name\": \"Falkland Islands\"\n    },\n    {\n        \"id\": 74,\n        \"name\": \"Faroe Islands\"\n    },\n    {\n        \"id\": 71,\n        \"name\": \"Fiji\"\n    },\n    {\n        \"id\": 70,\n        \"name\": \"Finland\"\n    },\n    {\n        \"id\": 75,\n        \"name\": \"France\"\n    },\n    {\n        \"id\": 79,\n        \"name\": \"French Guiana\"\n    },\n    {\n        \"id\": 174,\n        \"name\": \"French Polynesia\"\n    },\n    {\n        \"id\": 215,\n        \"name\": \"French Southern Territories\"\n    },\n    {\n        \"id\": 76,\n        \"name\": \"Gabon\"\n    },\n    {\n        \"id\": 84,\n        \"name\": \"Gambia\"\n    },\n    {\n        \"id\": 78,\n        \"name\": \"Georgia\"\n    },\n    {\n        \"id\": 57,\n        \"name\": \"Germany\"\n    },\n    {\n        \"id\": 80,\n        \"name\": \"Ghana\"\n    },\n    {\n        \"id\": 81,\n        \"name\": \"Gibraltar\"\n    },\n    {\n        \"id\": 88,\n        \"name\": \"Greece\"\n    },\n    {\n        \"id\": 83,\n        \"name\": \"Greenland\"\n    },\n    {\n        \"id\": 77,\n        \"name\": \"Grenada\"\n    },\n    {\n        \"id\": 86,\n        \"name\": \"Guadeloupe\"\n    },\n    {\n        \"id\": 91,\n        \"name\": \"Guam\"\n    },\n    {\n        \"id\": 90,\n        \"name\": \"Guatemala\"\n    },\n    {\n        \"id\": 82,\n        \"name\": \"Guernsey\"\n    },\n    {\n        \"id\": 85,\n        \"name\": \"Guinea\"\n    },\n    {\n        \"id\": 92,\n        \"name\": \"Guinea-Bissau\"\n    },\n    {\n        \"id\": 93,\n        \"name\": \"Guyana\"\n    },\n    {\n        \"id\": 98,\n        \"name\": \"Haiti\"\n    },\n    {\n        \"id\": 95,\n        \"name\": \"Heard Island and McDonald Islands\"\n    },\n    {\n        \"id\": 236,\n        \"name\": \"Holy See (Vatican City State)\"\n    },\n    {\n        \"id\": 96,\n        \"name\": \"Honduras\"\n    },\n    {\n        \"id\": 94,\n        \"name\": \"Hong Kong\"\n    },\n    {\n        \"id\": 99,\n        \"name\": \"Hungary\"\n    },\n    {\n        \"id\": 108,\n        \"name\": \"Iceland\"\n    },\n    {\n        \"id\": 104,\n        \"name\": \"India\"\n    },\n    {\n        \"id\": 100,\n        \"name\": \"Indonesia\"\n    },\n    {\n        \"id\": 107,\n        \"name\": \"Iran\"\n    },\n    {\n        \"id\": 106,\n        \"name\": \"Iraq\"\n    },\n    {\n        \"id\": 101,\n        \"name\": \"Ireland\"\n    },\n    {\n        \"id\": 103,\n        \"name\": \"Isle of Man\"\n    },\n    {\n        \"id\": 102,\n        \"name\": \"Israel\"\n    },\n    {\n        \"id\": 109,\n        \"name\": \"Italy\"\n    },\n    {\n        \"id\": 111,\n        \"name\": \"Jamaica\"\n    },\n    {\n        \"id\": 113,\n        \"name\": \"Japan\"\n    },\n    {\n        \"id\": 110,\n        \"name\": \"Jersey\"\n    },\n    {\n        \"id\": 112,\n        \"name\": \"Jordan\"\n    },\n    {\n        \"id\": 124,\n        \"name\": \"Kazakhstan\"\n    },\n    {\n        \"id\": 114,\n        \"name\": \"Kenya\"\n    },\n    {\n        \"id\": 117,\n        \"name\": \"Kiribati\"\n    },\n    {\n        \"id\": 251,\n        \"name\": \"Kosovo\"\n    },\n    {\n        \"id\": 122,\n        \"name\": \"Kuwait\"\n    },\n    {\n        \"id\": 115,\n        \"name\": \"Kyrgyzstan\"\n    },\n    {\n        \"id\": 125,\n        \"name\": \"Laos\"\n    },\n    {\n        \"id\": 134,\n        \"name\": \"Latvia\"\n    },\n    {\n        \"id\": 126,\n        \"name\": \"Lebanon\"\n    },\n    {\n        \"id\": 131,\n        \"name\": \"Lesotho\"\n    },\n    {\n        \"id\": 130,\n        \"name\": \"Liberia\"\n    },\n    {\n        \"id\": 135,\n        \"name\": \"Libya\"\n    },\n    {\n        \"id\": 128,\n        \"name\": \"Liechtenstein\"\n    },\n    {\n        \"id\": 132,\n        \"name\": \"Lithuania\"\n    },\n    {\n        \"id\": 133,\n        \"name\": \"Luxembourg\"\n    },\n    {\n        \"id\": 147,\n        \"name\": \"Macau\"\n    },\n    {\n        \"id\": 141,\n        \"name\": \"Madagascar\"\n    },\n    {\n        \"id\": 155,\n        \"name\": \"Malawi\"\n    },\n    {\n        \"id\": 157,\n        \"name\": \"Malaysia\"\n    },\n    {\n        \"id\": 154,\n        \"name\": \"Maldives\"\n    },\n    {\n        \"id\": 144,\n        \"name\": \"Mali\"\n    },\n    {\n        \"id\": 152,\n        \"name\": \"Malta\"\n    },\n    {\n        \"id\": 142,\n        \"name\": \"Marshall Islands\"\n    },\n    {\n        \"id\": 149,\n        \"name\": \"Martinique\"\n    },\n    {\n        \"id\": 150,\n        \"name\": \"Mauritania\"\n    },\n    {\n        \"id\": 153,\n        \"name\": \"Mauritius\"\n    },\n    {\n        \"id\": 246,\n        \"name\": \"Mayotte\"\n    },\n    {\n        \"id\": 156,\n        \"name\": \"Mexico\"\n    },\n    {\n        \"id\": 73,\n        \"name\": \"Micronesia\"\n    },\n    {\n        \"id\": 138,\n        \"name\": \"Moldova\"\n    },\n    {\n        \"id\": 137,\n        \"name\": \"Monaco\"\n    },\n    {\n        \"id\": 146,\n        \"name\": \"Mongolia\"\n    },\n    {\n        \"id\": 139,\n        \"name\": \"Montenegro\"\n    },\n    {\n        \"id\": 151,\n        \"name\": \"Montserrat\"\n    },\n    {\n        \"id\": 136,\n        \"name\": \"Morocco\"\n    },\n    {\n        \"id\": 158,\n        \"name\": \"Mozambique\"\n    },\n    {\n        \"id\": 145,\n        \"name\": \"Myanmar\"\n    },\n    {\n        \"id\": 159,\n        \"name\": \"Namibia\"\n    },\n    {\n        \"id\": 168,\n        \"name\": \"Nauru\"\n    },\n    {\n        \"id\": 167,\n        \"name\": \"Nepal\"\n    },\n    {\n        \"id\": 165,\n        \"name\": \"Netherlands\"\n    },\n    {\n        \"id\": 160,\n        \"name\": \"New Caledonia\"\n    },\n    {\n        \"id\": 170,\n        \"name\": \"New Zealand\"\n    },\n    {\n        \"id\": 164,\n        \"name\": \"Nicaragua\"\n    },\n    {\n        \"id\": 161,\n        \"name\": \"Niger\"\n    },\n    {\n        \"id\": 163,\n        \"name\": \"Nigeria\"\n    },\n    {\n        \"id\": 169,\n        \"name\": \"Niue\"\n    },\n    {\n        \"id\": 162,\n        \"name\": \"Norfolk Island\"\n    },\n    {\n        \"id\": 120,\n        \"name\": \"North Korea\"\n    },\n    {\n        \"id\": 143,\n        \"name\": \"North Macedonia\"\n    },\n    {\n        \"id\": 250,\n        \"name\": \"Northern Ireland\"\n    },\n    {\n        \"id\": 148,\n        \"name\": \"Northern Mariana Islands\"\n    },\n    {\n        \"id\": 166,\n        \"name\": \"Norway\"\n    },\n    {\n        \"id\": 171,\n        \"name\": \"Oman\"\n    },\n    {\n        \"id\": 177,\n        \"name\": \"Pakistan\"\n    },\n    {\n        \"id\": 184,\n        \"name\": \"Palau\"\n    },\n    {\n        \"id\": 172,\n        \"name\": \"Panama\"\n    },\n    {\n        \"id\": 175,\n        \"name\": \"Papua New Guinea\"\n    },\n    {\n        \"id\": 185,\n        \"name\": \"Paraguay\"\n    },\n    {\n        \"id\": 173,\n        \"name\": \"Peru\"\n    },\n    {\n        \"id\": 176,\n        \"name\": \"Philippines\"\n    },\n    {\n        \"id\": 180,\n        \"name\": \"Pitcairn Islands\"\n    },\n    {\n        \"id\": 178,\n        \"name\": \"Poland\"\n    },\n    {\n        \"id\": 183,\n        \"name\": \"Portugal\"\n    },\n    {\n        \"id\": 181,\n        \"name\": \"Puerto Rico\"\n    },\n    {\n        \"id\": 186,\n        \"name\": \"Qatar\"\n    },\n    {\n        \"id\": 188,\n        \"name\": \"Romania\"\n    },\n    {\n        \"id\": 190,\n        \"name\": \"Russian Federation\"\n    },\n    {\n        \"id\": 191,\n        \"name\": \"Rwanda\"\n    },\n    {\n        \"id\": 187,\n        \"name\": \"Réunion\"\n    },\n    {\n        \"id\": 26,\n        \"name\": \"Saint Barthélémy\"\n    },\n    {\n        \"id\": 198,\n        \"name\": \"Saint Helena, Ascension and Tristan da Cunha\"\n    },\n    {\n        \"id\": 119,\n        \"name\": \"Saint Kitts and Nevis\"\n    },\n    {\n        \"id\": 127,\n        \"name\": \"Saint Lucia\"\n    },\n    {\n        \"id\": 140,\n        \"name\": \"Saint Martin (French part)\"\n    },\n    {\n        \"id\": 179,\n        \"name\": \"Saint Pierre and Miquelon\"\n    },\n    {\n        \"id\": 237,\n        \"name\": \"Saint Vincent and the Grenadines\"\n    },\n    {\n        \"id\": 244,\n        \"name\": \"Samoa\"\n    },\n    {\n        \"id\": 203,\n        \"name\": \"San Marino\"\n    },\n    {\n        \"id\": 192,\n        \"name\": \"Saudi Arabia\"\n    },\n    {\n        \"id\": 204,\n        \"name\": \"Senegal\"\n    },\n    {\n        \"id\": 189,\n        \"name\": \"Serbia\"\n    },\n    {\n        \"id\": 194,\n        \"name\": \"Seychelles\"\n    },\n    {\n        \"id\": 202,\n        \"name\": \"Sierra Leone\"\n    },\n    {\n        \"id\": 197,\n        \"name\": \"Singapore\"\n    },\n    {\n        \"id\": 210,\n        \"name\": \"Sint Maarten (Dutch part)\"\n    },\n    {\n        \"id\": 201,\n        \"name\": \"Slovakia\"\n    },\n    {\n        \"id\": 199,\n        \"name\": \"Slovenia\"\n    },\n    {\n        \"id\": 193,\n        \"name\": \"Solomon Islands\"\n    },\n    {\n        \"id\": 205,\n        \"name\": \"Somalia\"\n    },\n    {\n        \"id\": 247,\n        \"name\": \"South Africa\"\n    },\n    {\n        \"id\": 89,\n        \"name\": \"South Georgia and the South Sandwich Islands\"\n    },\n    {\n        \"id\": 121,\n        \"name\": \"South Korea\"\n    },\n    {\n        \"id\": 207,\n        \"name\": \"South Sudan\"\n    },\n    {\n        \"id\": 68,\n        \"name\": \"Spain\"\n    },\n    {\n        \"id\": 129,\n        \"name\": \"Sri Lanka\"\n    },\n    {\n        \"id\": 182,\n        \"name\": \"State of Palestine\"\n    },\n    {\n        \"id\": 195,\n        \"name\": \"Sudan\"\n    },\n    {\n        \"id\": 206,\n        \"name\": \"Suriname\"\n    },\n    {\n        \"id\": 200,\n        \"name\": \"Svalbard and Jan Mayen\"\n    },\n    {\n        \"id\": 196,\n        \"name\": \"Sweden\"\n    },\n    {\n        \"id\": 43,\n        \"name\": \"Switzerland\"\n    },\n    {\n        \"id\": 211,\n        \"name\": \"Syria\"\n    },\n    {\n        \"id\": 208,\n        \"name\": \"São Tomé and Príncipe\"\n    },\n    {\n        \"id\": 227,\n        \"name\": \"Taiwan\"\n    },\n    {\n        \"id\": 218,\n        \"name\": \"Tajikistan\"\n    },\n    {\n        \"id\": 228,\n        \"name\": \"Tanzania\"\n    },\n    {\n        \"id\": 217,\n        \"name\": \"Thailand\"\n    },\n    {\n        \"id\": 223,\n        \"name\": \"Timor-Leste\"\n    },\n    {\n        \"id\": 216,\n        \"name\": \"Togo\"\n    },\n    {\n        \"id\": 219,\n        \"name\": \"Tokelau\"\n    },\n    {\n        \"id\": 222,\n        \"name\": \"Tonga\"\n    },\n    {\n        \"id\": 225,\n        \"name\": \"Trinidad and Tobago\"\n    },\n    {\n        \"id\": 221,\n        \"name\": \"Tunisia\"\n    },\n    {\n        \"id\": 220,\n        \"name\": \"Turkmenistan\"\n    },\n    {\n        \"id\": 213,\n        \"name\": \"Turks and Caicos Islands\"\n    },\n    {\n        \"id\": 226,\n        \"name\": \"Tuvalu\"\n    },\n    {\n        \"id\": 224,\n        \"name\": \"Türkiye\"\n    },\n    {\n        \"id\": 232,\n        \"name\": \"USA Minor Outlying Islands\"\n    },\n    {\n        \"id\": 230,\n        \"name\": \"Uganda\"\n    },\n    {\n        \"id\": 229,\n        \"name\": \"Ukraine\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"United Arab Emirates\"\n    },\n    {\n        \"id\": 231,\n        \"name\": \"United Kingdom\"\n    },\n    {\n        \"id\": 233,\n        \"name\": \"United States\"\n    },\n    {\n        \"id\": 234,\n        \"name\": \"Uruguay\"\n    },\n    {\n        \"id\": 235,\n        \"name\": \"Uzbekistan\"\n    },\n    {\n        \"id\": 242,\n        \"name\": \"Vanuatu\"\n    },\n    {\n        \"id\": 238,\n        \"name\": \"Venezuela\"\n    },\n    {\n        \"id\": 241,\n        \"name\": \"Vietnam\"\n    },\n    {\n        \"id\": 239,\n        \"name\": \"Virgin Islands (British)\"\n    },\n    {\n        \"id\": 240,\n        \"name\": \"Virgin Islands (USA)\"\n    },\n    {\n        \"id\": 243,\n        \"name\": \"Wallis and Futuna\"\n    },\n    {\n        \"id\": 66,\n        \"name\": \"Western Sahara\"\n    },\n    {\n        \"id\": 245,\n        \"name\": \"Yemen\"\n    },\n    {\n        \"id\": 248,\n        \"name\": \"Zambia\"\n    },\n    {\n        \"id\": 249,\n        \"name\": \"Zimbabwe\"\n    },\n    {\n        \"id\": 15,\n        \"name\": \"Åland Islands\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get States by Country",
+					"id": "18154107-c39fc08b-e2da-48a2-be9a-39bad018a524",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_api_key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \n  \"context\": {\n        \"lang\": \"ar_001\" // English: en_US / Arabic: ar_001\n    },\n  \"domain\": [[\"country_id\",\"=\",65]], // get all: [] , get egypt states: [[\"country_id\",\"=\",65]]\n  \"fields\": \n    [\n    \"id\",\n    \"country_id\",\n    \"name\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/json/2/res.country.state/search_read",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"2",
+								"res.country.state",
+								"search_read"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "18154107-e22f1303-1cab-4c08-9671-e30579bd7b30",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_api_key}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"domain\": [[\"country_id\",\"=\",65]], // get all: [] , get egypt states: [[\"country_id\",\"=\",65]]\n  \"fields\": \n    [\n    \"id\",\n    \"country_id\",\n    \"name\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/json/2/res.country.state/search_read",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"2",
+										"res.country.state",
+										"search_read"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "1785"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.2 Python/3.12.3"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 21:04:53 GMT"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "[\n    {\n        \"id\": 273,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Alexandria\"\n    },\n    {\n        \"id\": 285,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Aswan\"\n    },\n    {\n        \"id\": 286,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Asyut\"\n    },\n    {\n        \"id\": 269,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Red Sea\"\n    },\n    {\n        \"id\": 270,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Beheira\"\n    },\n    {\n        \"id\": 287,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Beni Suef\"\n    },\n    {\n        \"id\": 278,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Cairo\"\n    },\n    {\n        \"id\": 268,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Dakahlia\"\n    },\n    {\n        \"id\": 289,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Damietta\"\n    },\n    {\n        \"id\": 271,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Faiyum\"\n    },\n    {\n        \"id\": 272,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Gharbia\"\n    },\n    {\n        \"id\": 275,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Giza\"\n    },\n    {\n        \"id\": 290,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Helwan\"\n    },\n    {\n        \"id\": 274,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Ismailia\"\n    },\n    {\n        \"id\": 291,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"South Sinai\"\n    },\n    {\n        \"id\": 279,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Qalyubia\"\n    },\n    {\n        \"id\": 292,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Kafr el-Sheikh\"\n    },\n    {\n        \"id\": 294,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Qena\"\n    },\n    {\n        \"id\": 280,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Luxor\"\n    },\n    {\n        \"id\": 277,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Minya\"\n    },\n    {\n        \"id\": 276,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Monufia\"\n    },\n    {\n        \"id\": 293,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Matrouh\"\n    },\n    {\n        \"id\": 288,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Port Said\"\n    },\n    {\n        \"id\": 296,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Sohag\"\n    },\n    {\n        \"id\": 282,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Al Sharqia\"\n    },\n    {\n        \"id\": 295,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"North Sinai\"\n    },\n    {\n        \"id\": 283,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"6th of October\"\n    },\n    {\n        \"id\": 284,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"Suez\"\n    },\n    {\n        \"id\": 281,\n        \"country_id\": [\n            65,\n            \"Egypt\"\n        ],\n        \"name\": \"New Valley\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Dropdowns",
+					"id": "18154107-616f0cac-886a-42e9-ad0c-f2a1ae1328dc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_api_key}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{base_url}}/json/2/tawafuk.profile/get_dropdown_values",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"json",
+								"2",
+								"tawafuk.profile",
+								"get_dropdown_values"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "18154107-b0079c5b-97f9-4249-973c-bd7fd89bcff5",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_api_key}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{base_url}}/json/2/tawafuk.profile/get_dropdown_values",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"json",
+										"2",
+										"tawafuk.profile",
+										"get_dropdown_values"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "1552"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.2 Python/3.12.3"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 21:04:08 GMT"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"gender\": [\n        [\n            \"male\",\n            \"Male\"\n        ],\n        [\n            \"female\",\n            \"Female\"\n        ]\n    ],\n    \"marital_status\": [\n        [\n            \"single\",\n            \"Single\"\n        ],\n        [\n            \"divorced\",\n            \"Divorced\"\n        ],\n        [\n            \"widowed\",\n            \"Widowed\"\n        ]\n    ],\n    \"skin_color\": [\n        [\n            \"very_fair\",\n            \"Very Fair\"\n        ],\n        [\n            \"fair\",\n            \"Fair\"\n        ],\n        [\n            \"medium\",\n            \"Medium\"\n        ],\n        [\n            \"olive\",\n            \"Olive\"\n        ],\n        [\n            \"brown\",\n            \"Brown\"\n        ],\n        [\n            \"dark_brown\",\n            \"Dark Brown\"\n        ]\n    ],\n    \"body_type\": [\n        [\n            \"slim\",\n            \"Slim\"\n        ],\n        [\n            \"athletic\",\n            \"Athletic\"\n        ],\n        [\n            \"average\",\n            \"Average\"\n        ],\n        [\n            \"heavyset\",\n            \"Heavyset\"\n        ]\n    ],\n    \"sect\": [\n        [\n            \"sunni\",\n            \"Sunni\"\n        ],\n        [\n            \"shia\",\n            \"Shia\"\n        ],\n        [\n            \"other\",\n            \"Other\"\n        ]\n    ],\n    \"religious_commitment\": [\n        [\n            \"very_religious\",\n            \"Very Religious\"\n        ],\n        [\n            \"religious\",\n            \"Religious\"\n        ],\n        [\n            \"moderate\",\n            \"Moderate\"\n        ],\n        [\n            \"not_religious\",\n            \"Not Religious\"\n        ]\n    ],\n    \"prayer\": [\n        [\n            \"always\",\n            \"Always Pray\"\n        ],\n        [\n            \"mostly\",\n            \"Mostly Pray\"\n        ],\n        [\n            \"sometimes\",\n            \"Sometimes Pray\"\n        ],\n        [\n            \"rarely\",\n            \"Rarely Pray\"\n        ],\n        [\n            \"never\",\n            \"Never Pray\"\n        ]\n    ],\n    \"smoking\": [\n        [\n            \"never\",\n            \"Never\"\n        ],\n        [\n            \"occasionally\",\n            \"Occasionally\"\n        ],\n        [\n            \"regularly\",\n            \"Regularly\"\n        ]\n    ],\n    \"music\": [\n        [\n            \"listen\",\n            \"Listen to Music\"\n        ],\n        [\n            \"no_music\",\n            \"Do Not Listen\"\n        ],\n        [\n            \"selective\",\n            \"Selective\"\n        ]\n    ],\n    \"education_level\": [\n        [\n            \"high_school\",\n            \"High School\"\n        ],\n        [\n            \"diploma\",\n            \"Diploma\"\n        ],\n        [\n            \"bachelor\",\n            \"Bachelor\"\n        ],\n        [\n            \"master\",\n            \"Master\"\n        ],\n        [\n            \"phd\",\n            \"PhD\"\n        ],\n        [\n            \"other\",\n            \"Other\"\n        ]\n    ],\n    \"income_level\": [\n        [\n            \"low\",\n            \"Low Income\"\n        ],\n        [\n            \"middle\",\n            \"Middle Income\"\n        ],\n        [\n            \"upper_middle\",\n            \"Upper Middle Income\"\n        ],\n        [\n            \"high\",\n            \"High Income\"\n        ],\n        [\n            \"prefer_not_say\",\n            \"Prefer Not to Say\"\n        ]\n    ],\n    \"parents_alive\": [\n        [\n            \"both\",\n            \"Both Alive\"\n        ],\n        [\n            \"mother_only\",\n            \"Mother Only\"\n        ],\n        [\n            \"father_only\",\n            \"Father Only\"\n        ],\n        [\n            \"neither\",\n            \"Neither\"\n        ]\n    ],\n    \"state\": [\n        [\n            \"draft\",\n            \"Draft\"\n        ],\n        [\n            \"active\",\n            \"Active\"\n        ],\n        [\n            \"inactive\",\n            \"Inactive\"\n        ],\n        [\n            \"suspended\",\n            \"Suspended\"\n        ]\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "18154107-010a94c5-e0c5-4e38-80a9-dc1dc993a178"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f5babe82-285a-4840-9eb1-a9e518ed9576",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "71312160-645c-49ce-b1ad-7f306e7b4b2e",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://38.242.142.74:8069"
+		},
+		{
+			"key": "admin_api_key",
+			"value": "4fc7b1d95004979c2ca4c80a523d4a5609c3327a"
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}
