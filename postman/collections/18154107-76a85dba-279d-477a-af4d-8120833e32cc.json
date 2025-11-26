@@ -528,6 +528,11 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer {{admin_api_key}}"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar_001",
+								"type": "text"
 							}
 						],
 						"body": {
