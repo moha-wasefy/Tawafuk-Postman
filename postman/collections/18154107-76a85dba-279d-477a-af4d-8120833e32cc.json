@@ -24,11 +24,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"moha.test@example.com\",\n    \"password\": \"12345678\",\n    \"full_name\": \"Mohamed Ahmed\",\n    \"gender\": \"male\", // male,female\n    \"birth_date\": \"1994-11-01\",\n    \"phone\": \"+201012345678\",\n    \"country_id\": 65, // 65 --> Egypt\n    \"state_id\": 278, // 278 --> Cairo\n    \"city\": \"Cairo\"\n  }\n"
+							"raw": "{\n    \"email\": \"moha.test99@example.com\",\n    \"password\": \"aaaaaaaa1\",\n    \"full_name\": \"Mohamed Ahmed\",\n    \"gender\": \"male\", // male,female\n    \"birth_date\": \"1994-11-01\",\n    \"phone\": \"+201012345678\",\n    \"country_id\": 65, // 65 --> Egypt\n    \"state_id\": 278, // 278 --> Cairo\n    \"city\": \"Cairo\"\n  }\n"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/auth/register",
@@ -130,11 +135,16 @@
 								"key": "Authorization",
 								"value": "Bearer {{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"old_password\": \"123456789\",\n    \"new_password\": \"12345678\"\n}"
+							"raw": "{\n    \"old_password\": \"qqqqqqqq2\",\n    \"new_password\": \"qqqqqqqq3\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/auth/reset-password",
@@ -185,6 +195,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
 							}
 						],
 						"body": {
