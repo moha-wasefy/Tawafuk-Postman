@@ -677,11 +677,16 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer {{admin_api_key}}"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"context\": {\r\n        \"lang\": \"ar_001\" // English: en_US / Arabic: ar_001\r\n    }\r\n}"
+							"raw": "{}"
 						},
 						"url": {
 							"raw": "{{base_url}}/json/2/tawafuk.profile/get_dropdown_values",
