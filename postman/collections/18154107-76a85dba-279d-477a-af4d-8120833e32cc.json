@@ -33,7 +33,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"moha.test99@example.com\",\n    \"password\": \"aaaaaaaa1\",\n    \"full_name\": \"Mohamed Ahmed\",\n    \"gender\": \"male\", // male,female\n    \"birth_date\": \"1994-11-01\",\n    \"phone\": \"+201012345678\",\n    \"country_id\": 65, // 65 --> Egypt\n    \"state_id\": 278, // 278 --> Cairo\n    \"city\": \"Cairo\"\n  }\n"
+							"raw": "{\n    \"email\": \"moha.test9@example.com\",\n    \"password\": \"aaaaaaaa1\",\n    \"full_name\": \"Mohamed Ahmed\",\n    \"gender\": \"male\", // male,female\n    \"birth_date\": \"1994-11-01\",\n    \"phone\": \"+201012345678\",\n    \"country_id\": 65, // 65 --> Egypt\n    \"state_id\": 278, // 278 --> Cairo\n    \"city\": \"Cairo\"\n  }\n"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/auth/register",
@@ -90,7 +90,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\": \"moha.test9@example.com\",\n    \"password\": \"qqqqqqqq3\"\n}"
+							"raw": "{\n    \"login\": \"moha.test9@example.com\",\n    \"password\": \"aaaaaaaa1\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/auth/login",
